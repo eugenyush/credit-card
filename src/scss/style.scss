@@ -1,7 +1,18 @@
 @import "normalize.css";
+@import "bootstrap/scss/bootstrap";
 
 .credit-card{
     margin: 0 auto;
-    text-align: center;
-
+    width: 32rem;
+    height: 32rem;
+    border: 1px solid;
+    padding: 0.9rem;
+    &-label{
+        color: blueviolet;
+    }
+    &-form{
+        .btn{
+            margin-top: 4rem;
+        }
+    }
 }
