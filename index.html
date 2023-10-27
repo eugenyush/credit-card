@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>credit-card</title>
   </head>
-  <body>
+  <body class="bg-light">
     <div id="app">
-      <div class="credit-card">
-        <div class="credit-card-label text-uppercase">Payment</div>
+      <div class="credit-card card bg-light-subtle bg-gradient">
+        <div class="credit-card-label card-title mx-auto">Payment</div>
         <form action="#" class="credit-card-form ">
-            <label for="name" class="form-label">Name</label><br>
-            <input type="text" id="name" class="form-control" placeholder="Name on card"><br>
 
-            <label for="number" class="form-label">Card number</label><br>
-            <input type="text" id="number" class="form-control" name="number" placeholder="Valid card number"><br>
-            <div class="input-group">
-             <label for="expiration" class="form-label">Exp.(mm/yy)</label><br>
-            <input type="text" id="expiration" class="form-control form-control-sm" name="expiration" placeholder="Expiration Date"><br>
-            
-            <label for="cvv" >CVV</label><br>
-            <input type="text" id="cvv" class="form-control form-control-sm" name="cvv" placeholder="CVV"><br> 
+            <input type="text" id="name" class="form-control mb-3" placeholder="Name on card">
+
+            <div class="input-group mb-3">
+              <input type="text" id="number" class="form-control" name="number" placeholder="Valid card number">
+              <span class="input-group-text"><img src="/public/imges/symbols.png" style="width: 1.5rem;" alt=""></span>
             </div>
-            
-
+            <div class="input-group"> 
+              <input type="month"  id="expiration" class="form-control" name="expiration" placeholder="Expiration mm/yy">
+              <input type="text" id="cvv" class="form-control" name="cvv" placeholder="CVV"  maxlength="4">
+            </div>
             <button type="button" class="btn btn-primary btn-lg">Accept</button>
         </form>
       </div>
