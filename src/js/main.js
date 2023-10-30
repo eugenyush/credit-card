@@ -1,5 +1,6 @@
 import '../scss/style.scss';
 
+window.addEventListener('DOMContentLoaded', function() {
 
 const nameInput = document.querySelector("#name");
 const cardNumberInput = document.querySelector("#number");
@@ -48,3 +49,26 @@ cardNumberInput.addEventListener("change", (e)=>{
     imgCard.src = `/public/imges/${checkCard(cardNumberInput.value)}.png`;
     !validCardNumber() ? invalidNum.style.display = "block":invalidNum.style.display = "none";
 })
+
+const forms = document.querySelectorAll('form');
+
+function postData(form){
+    form.addEventListener('submit', (e) =>{
+        e.preventDefault();
+
+        const formData = new FormData(from);
+
+        const object = {};
+        fetch('server.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(object)
+        }).then(data => {
+            console.log(data);
+        });
+    })
+}
+
+});
