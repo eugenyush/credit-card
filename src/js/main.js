@@ -28,7 +28,7 @@ let validCardNumber = () => {
 }
 
 let validCvv = () => {
-    return /^[0-9]$/.test(cvvInput.value)
+    return /^[0-9]{4}$/.test(cvvInput.value)
 }
 
 btn.addEventListener("click", (e)=>{
@@ -50,23 +50,33 @@ cardNumberInput.addEventListener("change", (e)=>{
     !validCardNumber() ? invalidNum.style.display = "block":invalidNum.style.display = "none";
 })
 
+
 const forms = document.querySelectorAll('form');
+
+forms.forEach(item => {
+    postData(item);
+})
 
 function postData(form){
     form.addEventListener('submit', (e) =>{
         e.preventDefault();
 
-        const formData = new FormData(from);
+        const formData = new FormData(form);
 
         const object = {};
+
+        formData.forEach(function(value, key){
+            object[key] = value;
+        });
+
         fetch('server.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(object)
-        }).then(data => {
-            console.log(data);
+        }).then(response  => {
+            console.log(response.status);
         });
     })
 }
