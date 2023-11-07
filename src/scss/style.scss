@@ -1,11 +1,15 @@
 @import "normalize.css";
 @import "bootstrap/scss/bootstrap";
 
-.credit-card{
+
+.card{
     margin: 5rem auto;
     width: 25rem;
     height: 25rem;
     padding: 0.9rem;
+}
+
+.credit-card{
     &-label{
         color: blueviolet;
         font-size: 2rem;
@@ -23,5 +27,13 @@
             margin-top: 1.5rem;
            background-color: $green;
         }
+    }
+}
+
+.thanks-card{
+    margin: 8rem auto;
+    img{
+        width: 4rem;
+        height: 4rem;
     }
 }

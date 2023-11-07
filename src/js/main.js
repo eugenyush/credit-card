@@ -2,6 +2,7 @@ import '../scss/style.scss';
 
 window.addEventListener('DOMContentLoaded', function() {
 
+const creditCard = document.querySelector("#credit-card");
 const nameInput = document.querySelector("#name");
 const cardNumberInput = document.querySelector("#number");
 const cvvInput = document.querySelector("#cvv");
@@ -54,6 +55,15 @@ function checkDisplay(a){
 } 
 
 
+// Form
+
+const message = {
+    imgSuc: 'img',
+    imgFail: 'img',
+    success: 'Success',
+    failure: 'Fail'
+};
+
 const forms = document.querySelectorAll('form');
 
 forms.forEach(item => {
@@ -84,20 +94,44 @@ function postData(form){
                 body: JSON.stringify(object)
             }).then(response  => {
                 console.log(response.status);
+                showThanksCard();
+                form.rest();
             });
             
-            invalidName.style.display ="none";
-            invalidCvv.style.display = "none";
-            invalidNum.style.display = "none";
+            invalidName.style.display = checkDisplay(validName());
+            invalidCvv.style.display = checkDisplay(validCardNumber());
+            invalidNum.style.display = checkDisplay(validCvv());
+            invalidDate.style.display = checkDisplay(validDate());
+            
         }else{
             invalidName.style.display = checkDisplay(validName());
             invalidNum.style.display = checkDisplay(validCardNumber());
             invalidCvv.style.display = checkDisplay(validCvv());
-            invalidDate.style.display = checkDisplay(validDate());;
+            invalidDate.style.display = checkDisplay(validDate());
            
         }
         
     })
+}
+
+function showThanksCard(msg){
+    creditCard.style.display = "none";
+
+    const thanksCard = document.createElement('div');
+    thanksCard.classList.add('card');
+    thanksCard.innerHTML = `
+            <div class = "thanks-card">
+                <img src="/public/imges/success.png" alt="">
+                <div class = "thanks-card-title">Success!</div>
+            </div>
+            
+    `;
+    document.querySelector('#app').append(thanksCard);
+
+    setTimeout(() => {
+        thanksCard.remove();
+        creditCard.style.display = "flex";
+    },4000);
 }
 
 });
