@@ -2,6 +2,8 @@ import '../scss/style.scss';
 
 window.addEventListener('DOMContentLoaded', function() {
 
+// Constants for work with components of page
+
 const creditCard = document.querySelector("#credit-card");
 const nameInput = document.querySelector("#name");
 const cardNumberInput = document.querySelector("#number");
@@ -16,10 +18,14 @@ const imgCard = document.querySelector("#img-card");
 
 const btn = document.querySelector("#btn");
 
+// Regular expressions for card mastercard and visa
 
 let visa = new RegExp('^4[0-9]{12}(?:[0-9]{3})?$');
 let mastercard = new RegExp('^5[1-5][0-9]{14}$');
 let mastercard2 = new RegExp('^2[2-7][0-9]{14}$');
+
+
+// Function with regular expressions for validation inputs
 
 let validName = () => {
     return /^[A-z ]+$/.test(nameInput.value)
@@ -37,6 +43,8 @@ let validDate = () =>{
     return dateInput.value != "" ? true : false;
 }
 
+//Checking the entered card number
+
 let checkCard = (n) => {
         if(visa.test(n)){
            return "visa";
@@ -47,21 +55,23 @@ let checkCard = (n) => {
 }
 
 cardNumberInput.addEventListener("change", (e)=>{
-    imgCard.src = `/public/imges/${checkCard(cardNumberInput.value)}.png`;
+    imgCard.src = `/public/imgs/${checkCard(cardNumberInput.value)}.png`;
 })
+
+// Function for visible feedback block
 
 function checkDisplay(a){
     return a ? "none":"block";
 } 
 
 
-// Form
+// Main cod for work with form
 
 const message = {
-    imgSuc: 'img',
-    imgFail: 'img',
-    success: 'Success',
-    failure: 'Fail'
+    imgSuc: '/public/imgs/success.png',
+    imgFail: '/public/imgs/error.png',
+    success: 'Success!',
+    failure: 'Something went wrong try again!'
 };
 
 const forms = document.querySelectorAll('form');
@@ -72,7 +82,6 @@ forms.forEach(item => {
 
 function postData(form){
 
-   
     form.addEventListener('submit', (e) =>{
         e.preventDefault();
 
@@ -93,9 +102,12 @@ function postData(form){
                 },
                 body: JSON.stringify(object)
             }).then(response  => {
-                console.log(response.status);
-                showThanksCard();
-                form.rest();
+                console.log(response);
+                showThanksCard(message.success,message.imgSuc);
+            }).catch(()=>{
+                showThanksCard(message.failure,message.imgFail);
+            }).finally(() => {
+                form.reset();
             });
             
             invalidName.style.display = checkDisplay(validName());
@@ -114,15 +126,17 @@ function postData(form){
     })
 }
 
-function showThanksCard(msg){
+// Function for thanks card block
+
+function showThanksCard(msg,img){
     creditCard.style.display = "none";
 
     const thanksCard = document.createElement('div');
     thanksCard.classList.add('card');
     thanksCard.innerHTML = `
             <div class = "thanks-card">
-                <img src="/public/imges/success.png" alt="">
-                <div class = "thanks-card-title">Success!</div>
+                <img src="${img}" alt="">
+                <div class = "thanks-card-title">${msg}</div>
             </div>
             
     `;
